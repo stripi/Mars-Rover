@@ -49,6 +49,13 @@ namespace Test_Project
             testPlateau.AddRover(testRover2);
             Assert.That(testPlateau.Rovers[0].Pos.ReadMovement("M"), Is.EqualTo("0, 1, N"));
             Assert.That(testPlateau.Rovers[1].Pos.ReadMovement("M"), Is.EqualTo("1, 1, N"));
+        }
+        [Test]
+        public void MoveRoverMultipleTimes()
+        {
+            testPlateau.AddRover(testRover);
+            testPlateau.Rovers[0].Pos.ReadMovement("M");
+            Assert.That(testPlateau.Rovers[0].Pos.ReadMovement("M"), Is.EqualTo("0, 2, N"));
 
         }
 
