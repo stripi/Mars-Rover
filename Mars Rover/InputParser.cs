@@ -10,6 +10,7 @@ namespace Mars_Rover
     {
         public static void ParseInput(string input)
         {
+            input = input.Replace("\r", "");
             string[] inputs = input.Split('\n');
             int instructionCount = inputs.Length - 1 / 2;
 
@@ -20,12 +21,12 @@ namespace Mars_Rover
             }
 
             Plateau plateau = new Plateau(Int32.Parse(instructions[0][0]), Int32.Parse(instructions[0][1]));
+            Enums.Orientation orientation = Enums.Orientation.E;
 
             for (int i = 1; i < instructionCount; i++)
             {
                 if (i % 2 != 0)
                 {
-                    Enums.Orientation orientation;
 
                     switch (instructions[i][2].ToLower())
                     {
@@ -42,8 +43,8 @@ namespace Mars_Rover
                             orientation = Enums.Orientation.W;
                             break;
                     }
+                    plateau.AddRover(new Rover(Int32.Parse(instructions[i][0]), Int32.Parse(instructions[i][1]), orientation));
 
-                    plateau.AddRover(new Rover(Int32.Parse(instructions[i][0]), Int32.Parse(instructions[i][1]), Enums.Orientation.N));
                 }
                 else
                 {
