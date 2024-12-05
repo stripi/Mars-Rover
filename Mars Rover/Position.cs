@@ -21,7 +21,7 @@ namespace Mars_Rover
             Orientation = orientation;
         }
 
-        public void ReadMovement(string movements)
+        public string ReadMovement(string movements)
         {
             List<Enums.Instruction> instructions = [];
             movements = movements.ToLower();
@@ -56,6 +56,7 @@ namespace Mars_Rover
                         break;
                 }
             }
+            return PrintPosition();
         }
 
         public void Rotate(Enums.Instruction rotation)
@@ -174,6 +175,13 @@ namespace Mars_Rover
             }
             return false;
 
+        }
+
+        public string PrintPosition()
+        {
+            string position = $"{X}, {Y}, {Orientation}";
+            Console.WriteLine(position);
+            return position;
         }
     }
 }

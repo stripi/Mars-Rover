@@ -30,6 +30,7 @@ namespace Mars_Rover
                     break;
                 }
             }
+            rover.Pos.Plateau = this;
             Rovers.Add(rover);
         }
         public void AddRover(List<Rover> rovers)

@@ -8,11 +8,11 @@ namespace Mars_Rover
 {
     public class Rover
     {
-        
+        public Position Pos { get; set; }
 
         public Rover(int x, int y, Enums.Orientation orientation) 
         {
-            
+            Pos = new Position(x, y, orientation);
         }
 
 
