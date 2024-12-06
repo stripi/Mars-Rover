@@ -156,7 +156,7 @@ namespace Mars_Rover
                     }
                     else if (amount == -1)
                     {
-                        if (X - 1 <= 0) return false;
+                        if (X - 1 < 0) return false;
                         return true;
                     }
                     break;
@@ -168,7 +168,7 @@ namespace Mars_Rover
                     }
                     else if (amount == -1)
                     {
-                        if (Y - 1 <= 0) return false;
+                        if (Y - 1 < 0) return false;
                         return true;
                     }
                     break;

@@ -4,13 +4,15 @@
     {
         static void Main(string[] args)
         {
-            string inputToParse =   """
-                                    5 5
-                                    1 1 N
-                                    MMM
-                                    2 2 E
-                                    MMMM
+            string inputToParse = """
+                                    4 6
+                                    1 2 N
+                                    LMLMLMLMM
+                                    3 3 E
+                                    MMRMMRMRRM
                                     """;
+
+            
 
             InputParser.ParseInput(inputToParse);
         }

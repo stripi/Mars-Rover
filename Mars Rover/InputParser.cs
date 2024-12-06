@@ -6,50 +6,75 @@ using System.Threading.Tasks;
 
 namespace Mars_Rover
 {
-    internal static class InputParser
+    public static class InputParser
     {
         public static void ParseInput(string input)
         {
-            input = input.Replace("\r", "");
-            string[] inputs = input.Split('\n');
-            int instructionCount = inputs.Length - 1 / 2;
-
-            List<string[]> instructions = [];
-            foreach (string line in inputs)
+            try
             {
-                instructions.Add(line.Split(' '));
-            }
+                if (string.IsNullOrEmpty(input)) throw new ArgumentNullException();
 
-            Plateau plateau = new Plateau(Int32.Parse(instructions[0][0]), Int32.Parse(instructions[0][1]));
-            Enums.Orientation orientation = Enums.Orientation.E;
 
-            for (int i = 1; i < instructionCount; i++)
-            {
-                if (i % 2 != 0)
+
+
+                input = input.Replace("\r", "");
+                string[] inputs = input.Split('\n');
+
+                if (inputs.Length < 3) throw new ArgumentException();
+
+                int instructionCount = inputs.Length - 1 / 2;
+
+
+                List<string[]> instructions = [];
+                foreach (string line in inputs)
                 {
+                    instructions.Add(line.Split(' '));
+                }
 
-                    switch (instructions[i][2].ToLower())
+                Plateau plateau = new Plateau(Int32.Parse(instructions[0][0]), Int32.Parse(instructions[0][1]));
+                Enums.Orientation orientation = Enums.Orientation.E;
+
+                for (int i = 1; i < instructionCount; i++)
+                {
+                    if (i % 2 != 0)
                     {
-                        case "n":
-                            orientation = Enums.Orientation.N;
-                            break;
-                        case "s":
-                            orientation = Enums.Orientation.S;
-                            break;
-                        case "e":
-                            orientation = Enums.Orientation.E;
-                            break;
-                        case "w":
-                            orientation = Enums.Orientation.W;
-                            break;
-                    }
-                    plateau.AddRover(new Rover(Int32.Parse(instructions[i][0]), Int32.Parse(instructions[i][1]), orientation));
 
+                        switch (instructions[i][2].ToLower())
+                        {
+                            case "n":
+                                orientation = Enums.Orientation.N;
+                                break;
+                            case "s":
+                                orientation = Enums.Orientation.S;
+                                break;
+                            case "e":
+                                orientation = Enums.Orientation.E;
+                                break;
+                            case "w":
+                                orientation = Enums.Orientation.W;
+                                break;
+                        }
+                        plateau.AddRover(new Rover(Int32.Parse(instructions[i][0]), Int32.Parse(instructions[i][1]), orientation));
+
+                    }
+                    else
+                    {
+                        plateau.Rovers[i / 2 - 1].Pos.ReadMovement(String.Join("", instructions[i]));
+                    }
                 }
-                else
-                {
-                    plateau.Rovers[i / 2 - 1].Pos.ReadMovement(String.Join("", instructions[i]));
-                }
+                plateau.PrintGrid();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 

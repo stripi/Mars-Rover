@@ -17,7 +17,7 @@ namespace Mars_Rover
         {
             X = x;
             Y = y;
-            Grid = new char[x, y];
+            Grid = new char[x+1,y+1];
         }
 
         public void AddRover (Rover rover)
@@ -42,7 +42,32 @@ namespace Mars_Rover
         }
         public void PrintGrid()
         {
+            Console.WriteLine("\n");
 
+            for (int i = 0; i < Grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < Grid.GetLength(1); j++)
+                {
+                    Grid[i, j] = '-';
+                }
+            }
+            int count = 1;
+            foreach (Rover rover in Rovers)
+            {
+                Grid[Grid.GetLength(0)-rover.Pos.Y-1, rover.Pos.X] = count.ToString()[0];
+                count++;
+            }
+
+            for (int i = 0; i < Grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < Grid.GetLength(1); j++)
+                {
+                    Console.Write($"  {Grid[i,j]} ");
+                    
+                }
+                Console.WriteLine("\n");
+            }
+            
         }
     }
 }
